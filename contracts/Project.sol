@@ -13,4 +13,22 @@ contract Project is ERC20 {
         name = name_;
         symbol = symbol_;
     }
+
+    function transferTask(address[] memory accounts, uint256[] memory amounts)
+        public
+        virtual
+        returns (bool)
+    {
+        require(
+            accounts.length == amounts.length,
+            "Not equal length of arrays"
+        );
+        address owner = msg.sender;
+
+        for (uint256 i = 0; i < accounts.length; i++) {
+            _transfer(owner, accounts[i], amounts[i]);
+        }
+
+        return true;
+    }
 }
