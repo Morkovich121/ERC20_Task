@@ -46,7 +46,7 @@ describe("Project", function () {
 
     it('should fail if the balance of owner is less than amount', async function () {
       const accounts = [firstBuyer.address, secondBuyer.address];
-      const amounts = [10000, 2];
+      const amounts = [999, 2];
       await expect(proj.transferTask(accounts, amounts)).to.be.revertedWith("Balance of owner is less than amount");
     });
   });
