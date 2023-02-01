@@ -5,7 +5,11 @@ pragma solidity ^0.8.9;
 import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Project is ERC20 {
-    constructor() ERC20("Project", "PRJ") {}
+    address public owner = _msgSender();
+
+    constructor() ERC20("Project", "PRJ") {
+        _mint(owner, 1000);
+    }
 
     function transferTask(address[] memory accounts, uint256[] memory amounts)
         public
@@ -20,9 +24,12 @@ contract Project is ERC20 {
             (accounts.length > 0 && amounts.length > 0),
             "Length of arrays must be more than 0"
         );
-        address owner = msg.sender;
 
         for (uint256 i = 0; i < accounts.length; i++) {
+            require(
+                balanceOf(owner) > amounts[i],
+                "Balance of owner is less than amount"
+            );
             _transfer(owner, accounts[i], amounts[i]);
         }
 
