@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.7.3;
+pragma solidity ^0.8.9;
 
 import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
@@ -23,6 +23,7 @@ contract Project is ERC20 {
             accounts.length == amounts.length,
             "Not equal length of arrays"
         );
+        require((accounts.length>0), message);
         address owner = msg.sender;
 
         for (uint256 i = 0; i < accounts.length; i++) {
