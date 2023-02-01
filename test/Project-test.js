@@ -10,7 +10,6 @@ describe("Project", function () {
   let owner
   let firstBuyer
   let secondBuyer
-  let auct
 
   beforeEach(async function () {
     [owner, firstBuyer, secondBuyer] = await ethers.getSigners();
