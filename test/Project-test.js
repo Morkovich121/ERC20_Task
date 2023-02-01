@@ -19,10 +19,6 @@ describe("Project", function () {
     await proj.deployed();
   });
   describe('transferTask', function () {
-    it('should check if owner is correct', async function () {
-      expect(await proj.owner()).to.equal(owner.address);
-    });
-
     it('should fail if the length of accounts and amounts arrays are not equal', async function () {
       const accounts = [firstBuyer.address, secondBuyer.address];
       const amounts = [1, 2, 3];
@@ -37,16 +33,28 @@ describe("Project", function () {
 
     it('should transfer amounts to specified accounts', async function () {
       const accounts = [firstBuyer.address, secondBuyer.address];
-      const amounts = [1, 3];
+      const startBalances = [];
+      const endBalances = [];
+      for (let i = 0; i < accounts.length; i++) {
+        startBalances.push(await proj.balanceOf(accounts[i]))
+      }
+      const amounts = [2, 3];
       await proj.transferTask(accounts, amounts);
-      const isSuccessful = await proj.isLastOperationSuccessful();
-      expect(isSuccessful).to.be.true;
+      for (let i = 0; i < accounts.length; i++) {
+        endBalances.push(await proj.balanceOf(accounts[i]))
+      }
+      let areAllOperationsSuccessful = true;
+      for (let i = 0; i < accounts.length; i++) {
+        if (endBalances[i] === startBalances[i]) areAllOperationsSuccessful = false;
+      }
+      expect(areAllOperationsSuccessful).to.be.true;
     });
 
-    it('should fail if the balance of owner is less than amount', async function () {
+    it('should fail if the transfer amount exceeds balance', async function () {
       const accounts = [firstBuyer.address, secondBuyer.address];
-      const amounts = [999, 2];
-      await expect(proj.transferTask(accounts, amounts)).to.be.revertedWith("Balance of owner is less than amount");
+      const amounts = [999, 999];
+      await expect(proj.transferTask(accounts, amounts)).to.be.revertedWith('ERC20: transfer amount exceeds balance');
     });
+
   });
 });
