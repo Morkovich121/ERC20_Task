@@ -3,6 +3,7 @@
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
     "@openzeppelin/contracts": "^4.8.1",
+    "dotenv": "^16.0.3",
     "i": "^0.3.7",
     "npm": "^9.4.0",
     "solidity-coverage": "^0.8.2"
