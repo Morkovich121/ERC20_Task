@@ -5,14 +5,7 @@ pragma solidity ^0.8.9;
 import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Project is ERC20 {
-    string public name;
-    string public symbol;
-    uint256 public decimals = 18;
-
-    constructor(string memory name_, string memory symbol_) public {
-        name = name_;
-        symbol = symbol_;
-    }
+    constructor() ERC20("Project", "PRJ") {}
 
     function transferTask(address[] memory accounts, uint256[] memory amounts)
         public
@@ -23,7 +16,10 @@ contract Project is ERC20 {
             accounts.length == amounts.length,
             "Not equal length of arrays"
         );
-        require((accounts.length>0), message);
+        require(
+            (accounts.length > 0 && amounts.length > 0),
+            "Length of arrays must be more than 0"
+        );
         address owner = msg.sender;
 
         for (uint256 i = 0; i < accounts.length; i++) {
