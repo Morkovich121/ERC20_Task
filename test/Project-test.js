@@ -39,9 +39,9 @@ describe("Project", function () {
     it('should transfer amounts to specified accounts', async function () {
       const accounts = [firstBuyer.address, secondBuyer.address];
       const amounts = [1, 3];
-      const result = (await proj.transferTask(accounts, amounts));
-      console.log(result);
-      expect(result).to.equal(true);
+      await proj.transferTask(accounts, amounts);
+      const isSuccessful = await proj.isLastOperationSuccessful();
+      expect(isSuccessful).to.be.true;
     });
 
     it('should fail if the balance of owner is less than amount', async function () {
