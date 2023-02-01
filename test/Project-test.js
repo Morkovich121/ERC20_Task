@@ -8,12 +8,12 @@ const { expect } = require("chai");
 describe("Project", function () {
 
   let owner
-  let buyer1
-  let buyer2
+  let firstBuyer
+  let secondBuyer
   let auct
 
   beforeEach(async function () {
-    [owner, buyer1, buyer2] = await ethers.getSigners();
+    [owner, firstBuyer, secondBuyer] = await ethers.getSigners();
 
     const Project = await ethers.getContractFactory("Project", owner);
     proj = await Project.deploy();
@@ -25,7 +25,7 @@ describe("Project", function () {
     });
 
     it('should fail if the length of accounts and amounts arrays are not equal', async function () {
-      const accounts = [buyer1.address, buyer2.address];
+      const accounts = [firstBuyer.address, secondBuyer.address];
       const amounts = [1, 2, 3];
       await expect(proj.transferTask(accounts, amounts)).to.be.revertedWith('Not equal length of arrays');
     });
@@ -37,7 +37,7 @@ describe("Project", function () {
     });
 
     it('should transfer amounts to specified accounts', async function () {
-      const accounts = [buyer1.address, buyer2.address];
+      const accounts = [firstBuyer.address, secondBuyer.address];
       const amounts = [1, 3];
       const result = (await proj.transferTask(accounts, amounts));
       console.log(result);
@@ -45,7 +45,7 @@ describe("Project", function () {
     });
 
     it('should fail if the balance of owner is less than amount', async function () {
-      const accounts = [buyer1.address, buyer2.address];
+      const accounts = [firstBuyer.address, secondBuyer.address];
       const amounts = [10000, 2];
       await expect(proj.transferTask(accounts, amounts)).to.be.revertedWith("Balance of owner is less than amount");
     });
