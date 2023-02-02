@@ -9,9 +9,19 @@ contract Project is ERC20 {
         _mint(_msgSender(), 1000);
     }
 
+    function callTransferTask(
+        address owner,
+        address[] memory accounts,
+        uint256[] memory amounts
+    ) public virtual {
+        address caller = _msgSender();
+        if (owner == caller) {
+            transferTask(accounts, amounts);
+        }
+    }
+
     function transferTask(address[] memory accounts, uint256[] memory amounts)
-        public
-        virtual
+        private
         returns (bool)
     {
         require(
