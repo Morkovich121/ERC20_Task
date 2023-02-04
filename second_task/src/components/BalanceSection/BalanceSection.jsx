@@ -8,18 +8,25 @@ const BalanceSection = () => {
     const [userAccount, setUserAccount] = useState("");
     const [balance, setBalance] = useState(0);
 
-    const onConnect = () => {
+    const onConnect = async () => {
         if (window.ethereum) {
-            window.ethereum
-                .request({ method: "eth_requestAccounts" })
-                .then((account) => {
-                    setUserAccount(account[0]);
-                    getBalance(account[0]);
-                });
-            window.ethereum.on("accountChanged", onConnect);
-            window.ethereum.on("chainChanged", chainChanedHandler);
+            let currentChain = "";
+            currentChain = await window.ethereum.request({ method: "eth_chainId" })
+            if (currentChain === '0x5') {
+                window.ethereum
+                    .request({ method: "eth_requestAccounts" })
+                    .then((account) => {
+                        setUserAccount(account[0]);
+                        getBalance(account[0]);
+                    });
+                window.ethereum.on("accountChanged", onConnect);
+                window.ethereum.on("chainChanged", chainChanedHandler);
+            }
+            else {
+                alert("Необходимо выбрать сеть Goerli")
+            }
         } else {
-            alert("установите метамаск");
+            alert("Установите метамаск");
         }
     };
 
