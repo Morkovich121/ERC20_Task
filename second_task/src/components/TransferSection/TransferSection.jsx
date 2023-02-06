@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
 import { ethers } from 'ethers'
+
+import './TransferSection.css'
 
 const TransferSection = () => {
 
@@ -10,13 +12,31 @@ const TransferSection = () => {
     const wallet = new ethers.Wallet(privateKey, provider);
     const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
-    contract.balanceOf("0x99C1ab1f6E86561711Ae5f5cA299AA8C8DBc98dD").then((tr) => {
-        console.log((tr));
-    })
+    const coins = useRef();
+    const address = useRef();
 
+    const onTransferHandler = (walletAddress, coinsAmount) => {
+        contract.transfer(walletAddress, coinsAmount)
+        alert("Перевод успешен")
+    }
 
     return (
-        <div>TransferSection</div>
+        <div className='w50'>
+            <div className="transferSection">
+                <h2>Перевод денег</h2>
+                <div className="form">
+                    <div className="inputSection">
+                        <label htmlFor='walletAddress' className='label'>Укажите номер кошелька: </label>
+                        <input id="walletAddress" type="text" className='input' ref={address} />
+                    </div>
+                    <div className="inputSection">
+                        <label htmlFor='coinsAmount' className='label'>Укажите сумму перевода: </label>
+                        <input id="coinsAmount" type="text" className='input' ref={coins} />
+                    </div>
+                    <button className='btn' onClick={() => { onTransferHandler(address.current.value, coins.current.value) }}>Перевести деньги</button>
+                </div>
+            </div>
+        </div>
     )
 }
 

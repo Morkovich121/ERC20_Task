@@ -1,0 +1,22 @@
+.user_info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 600;
+    font-size: 18px;
+
+}
+
+.user_info span {
+    display: flex;
+    gap: 4px;
+}
+
+.user_info-data {
+    color: rgb(243, 159, 159)
+}
+
+.connectWallet {
+    display: flex;
+    gap: 10px;
+}

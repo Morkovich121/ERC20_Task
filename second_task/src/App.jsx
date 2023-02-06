@@ -5,8 +5,11 @@ import TransferSection from './components/TransferSection/TransferSection';
 const App = () => {
   return (
     <>
-      <BalanceSection />
-      <TransferSection />
+      <div className='header'>React + ERC20 + Metamask task</div>
+      <div className="container">
+        <BalanceSection />
+        <TransferSection />
+      </div>
     </>
   );
 }

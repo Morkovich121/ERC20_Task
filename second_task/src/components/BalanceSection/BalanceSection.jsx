@@ -26,7 +26,7 @@ const BalanceSection = () => {
                 alert("Необходимо выбрать сеть Goerli")
             }
         } else {
-            alert("Установите метамаск");
+            alert("Установите Метамаск");
         }
     };
 
@@ -47,19 +47,29 @@ const BalanceSection = () => {
 
     return (
         <>
-            {userAccount && balance ? (
-                <div className="user_info">
-                    <span>Your account: {userAccount}</span>
-                    <span>Your balance: {balance}</span>
-                </div>
-            ) : (
-                <>
-                    <h2 className="title">Подключите свой кошелек к приложению</h2>
-                    <button onClick={onConnect} className="btn">
-                        Подключить кошелек
-                    </button>
-                </>
-            )}
+            <div className="w50">
+                {userAccount && balance ? (
+                    <div className="user_info">
+                        <span>Ваш аккаунт: 
+                            <span className='user_info-data'>
+                                 {userAccount}
+                            </span>
+                        </span>
+                        <span>Ваш баланс: 
+                            <span className='user_info-data'>
+                                 {balance}
+                            </span>
+                        </span>
+                    </div>
+                ) : (
+                    <div className='connectWallet'>
+                        <h3 className="title">Подключите свой кошелек к приложению</h3>
+                        <button onClick={onConnect} className="btn">
+                            Подключить кошелек
+                        </button>
+                    </div>
+                )}
+            </div>
         </>
     )
 }
