@@ -16,8 +16,36 @@ const TransferSection = () => {
     const address = useRef();
 
     const onTransferHandler = (walletAddress, coinsAmount) => {
-        contract.transfer(walletAddress, coinsAmount)
-        alert("Перевод успешен")
+        const addressArray = walletAddress.split('\n');
+        const coinsAmountArray = coinsAmount.split('\n');
+        if (addressArray.length !== coinsAmountArray.length) {
+            alert("Укажите одинаковое количество кошельков и сумм перевода")
+        }
+        else if (addressArray.length === 0) {
+            alert("Поля не могут быть пустыми");
+        }
+        else {
+            let isAddressValid = true;
+            let isCoinsAmountValid = true;
+            for (let i = 0; i < addressArray.length; i++) {
+                if (!(addressArray[i].startsWith('0x')) || addressArray[i].length !== 42) {
+                    isAddressValid = false;
+                    break;
+                }
+                if (isNaN(parseFloat(coinsAmountArray[i]))) {
+                    isCoinsAmountValid = false;
+                    break;
+                }
+            }
+            if (!isAddressValid || !isCoinsAmountValid) {
+                alert("Адрес кошелька или сумма перевода не корректны");
+                return;
+            }
+            //contract.transfer(walletAddress, coinsAmount)
+            alert("Перевод успешен")
+        }
+
+
     }
 
     return (
@@ -26,12 +54,12 @@ const TransferSection = () => {
                 <h2>Перевод денег</h2>
                 <div className="form">
                     <div className="inputSection">
-                        <label htmlFor='walletAddress' className='label'>Укажите номер кошелька: </label>
-                        <input id="walletAddress" type="text" className='input' ref={address} />
+                        <label htmlFor='walletAddress' className='label'>Укажите номера кошельков(с новой строки): </label>
+                        <textarea id="walletAddress" className='input' ref={address} ></textarea>
                     </div>
                     <div className="inputSection">
-                        <label htmlFor='coinsAmount' className='label'>Укажите сумму перевода: </label>
-                        <input id="coinsAmount" type="text" className='input' ref={coins} />
+                        <label htmlFor='coinsAmount' className='label'>Укажите суммы переводов(с новой строки): </label>
+                        <textarea id="coinsAmount" type="text" className='input' ref={coins}></textarea>
                     </div>
                     <button className='btn' onClick={() => { onTransferHandler(address.current.value, coins.current.value) }}>Перевести деньги</button>
                 </div>
