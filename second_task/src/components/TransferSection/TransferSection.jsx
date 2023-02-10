@@ -11,6 +11,8 @@ const TransferSection = () => {
     const privateKey = "0x6a693ba3f7051284de12ae99df3820310354e6a43f36c3384bc271b240d70c1f"
     const wallet = new ethers.Wallet(privateKey, provider);
     const contract = new ethers.Contract(contractAddress, contractABI, wallet);
+    console.log(contract.balanceOf("0x791af819c7ae8f38c47146d3bae7c4cf96cc6e3e"));
+    console.log(contract.balanceOf("0x99C1ab1f6E86561711Ae5f5cA299AA8C8DBc98dD"));
 
     const coins = useRef();
     const address = useRef();
@@ -42,6 +44,7 @@ const TransferSection = () => {
                 return;
             }
             //contract.transfer(walletAddress, coinsAmount)
+
             alert("Перевод успешен")
         }
 
@@ -49,20 +52,18 @@ const TransferSection = () => {
     }
 
     return (
-        <div className='w50'>
-            <div className="transferSection">
-                <h2>Перевод денег</h2>
-                <div className="form">
-                    <div className="inputSection">
-                        <label htmlFor='walletAddress' className='label'>Укажите номера кошельков(с новой строки): </label>
-                        <textarea id="walletAddress" className='input' ref={address} ></textarea>
-                    </div>
-                    <div className="inputSection">
-                        <label htmlFor='coinsAmount' className='label'>Укажите суммы переводов(с новой строки): </label>
-                        <textarea id="coinsAmount" type="text" className='input' ref={coins}></textarea>
-                    </div>
-                    <button className='btn' onClick={() => { onTransferHandler(address.current.value, coins.current.value) }}>Перевести деньги</button>
+        <div className="transferSection">
+            <h2>Перевод денег</h2>
+            <div className="form">
+                <div className="inputSection">
+                    <label htmlFor='walletAddress' className='label'>Укажите номера кошельков(с новой строки): </label>
+                    <textarea id="walletAddress" className='input' ref={address} ></textarea>
                 </div>
+                <div className="inputSection">
+                    <label htmlFor='coinsAmount' className='label'>Укажите суммы переводов(с новой строки): </label>
+                    <textarea id="coinsAmount" type="text" className='input' ref={coins}></textarea>
+                </div>
+                <button className='btn' onClick={() => { onTransferHandler(address.current.value, coins.current.value) }}>Перевести деньги</button>
             </div>
         </div>
     )

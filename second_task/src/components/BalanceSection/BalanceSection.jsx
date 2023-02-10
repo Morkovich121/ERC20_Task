@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ethers } from "ethers";
 
 import './BalanceSection.css'
+import TransferSection from '../TransferSection/TransferSection';
 
 const BalanceSection = () => {
 
@@ -19,7 +20,7 @@ const BalanceSection = () => {
                         setUserAccount(account[0]);
                         getBalance(account[0]);
                     });
-                window.ethereum.on("accountChanged", onConnect);
+                window.ethereum.on("accountsChanged", onConnect);
                 window.ethereum.on("chainChanged", chainChanedHandler);
             }
             else {
@@ -50,14 +51,14 @@ const BalanceSection = () => {
             <div className="w50">
                 {userAccount && balance ? (
                     <div className="user_info">
-                        <span>Ваш аккаунт: 
+                        <span>Ваш аккаунт:
                             <span className='user_info-data'>
-                                 {userAccount}
+                                {userAccount}
                             </span>
                         </span>
-                        <span>Ваш баланс: 
+                        <span>Ваш баланс:
                             <span className='user_info-data'>
-                                 {balance}
+                                {balance}
                             </span>
                         </span>
                     </div>
@@ -69,6 +70,9 @@ const BalanceSection = () => {
                         </button>
                     </div>
                 )}
+            </div>
+            <div className='w50'>
+                {userAccount ? <TransferSection /> : <h3>Для совершения переводов подключите аккаунт метамаск</h3>}
             </div>
         </>
     )
