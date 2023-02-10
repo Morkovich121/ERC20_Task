@@ -31,7 +31,7 @@ const TransferSection = () => {
             let isAddressValid = true;
             let isCoinsAmountValid = true;
             for (let i = 0; i < addressArray.length; i++) {
-                if (!(addressArray[i].startsWith('0x')) || addressArray[i].length !== 42) {
+                if (!(addressArray[i].startsWith('0x')) || addressArray[i].length !== 42 || !(/^[a-zA-Z0-9]+$/.test(addressArray[i]))) {
                     isAddressValid = false;
                     break;
                 }
