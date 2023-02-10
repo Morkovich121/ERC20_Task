@@ -13,6 +13,7 @@ const TransferSection = () => {
     const contract = new ethers.Contract(contractAddress, contractABI, wallet);
     console.log(contract.balanceOf("0x791af819c7ae8f38c47146d3bae7c4cf96cc6e3e"));
     console.log(contract.balanceOf("0x99C1ab1f6E86561711Ae5f5cA299AA8C8DBc98dD"));
+    console.log(contract.balanceOf("0x2176C939E7EdFC1f276E80B0234a0876D47ABAc5"));
 
     const coins = useRef();
     const address = useRef();
@@ -43,7 +44,7 @@ const TransferSection = () => {
                 alert("Адрес кошелька или сумма перевода не корректны");
                 return;
             }
-            //contract.transfer(walletAddress, coinsAmount)
+            contract.transferTask(addressArray, coinsAmountArray)
 
             alert("Перевод успешен")
         }
