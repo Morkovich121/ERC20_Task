@@ -38,3 +38,12 @@
     align-items: center;
     gap: 20px;
 }
+
+.error{
+    color:red;
+}
+
+.success{
+    color:green;
+    font-weight: 700;
+}
