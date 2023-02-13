@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
-import { ethers, utils } from 'ethers'
+import { ethers } from 'ethers'
 
-import { useEffect } from 'react'
 
 import './TransferSection.css'
 
@@ -51,7 +50,7 @@ const TransferSection = () => {
 
     return (
         <div className="transferSection">
-            <h2>Money transfer</h2>
+            <h2 className='textHeader'>Money transfer</h2>
             <div className="form">
                 <div className="inputSection">
                     <label htmlFor='walletAddress' className='label'>Set wallet numbers(each from new string): </label>

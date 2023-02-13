@@ -9,8 +9,6 @@ const BalanceSection = () => {
     const [userAccount, setUserAccount] = useState("");
     const [balance, setBalance] = useState(0);
 
-
-
     const onConnect = async () => {
         if (window.ethereum) {
             let currentChain = "";
@@ -50,31 +48,36 @@ const BalanceSection = () => {
 
     return (
         <>
-            <div className="w50">
-                {userAccount && balance ? (
-                    <div className="user_info">
-                        <span>Your account:
-                            <span className='user_info-data'>
-                                {userAccount}
-                            </span>
-                        </span>
-                        <span>Your balance:
-                            <span className='user_info-data'>
-                                {balance} PRJ
-                            </span>
-                        </span>
-                    </div>
-                ) : (
-                    <div className='connectWallet'>
-                        <h3 className="title">Connect your wallet to website</h3>
-                        <button onClick={onConnect} className="btn">
-                            Connect wallet
-                        </button>
-                    </div>
-                )}
-            </div>
-            <div className='w50'>
-                {userAccount && balance ? <TransferSection /> : <h3>For making transfers you need to connect to Metamask</h3>}
+            <div className="main">
+                <div>
+                    {userAccount && balance ? (
+                        <div style={{ display: "flex", flexDirection: "column",gap:"20px" }}>
+                            <div className='textHeader'>Wallet Information</div>
+                            <div className="user_info">
+                                <span>Your account:
+                                    <span className='user_info-data'>
+                                        {userAccount}
+                                    </span>
+                                </span>
+                                <span>Your balance:
+                                    <span className='user_info-data'>
+                                        {balance} PRJ
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='connectWallet'>
+                            <h3 className="title">Connect your metamask account to start</h3>
+                            <button onClick={onConnect} className="btn">
+                                Connect wallet
+                            </button>
+                        </div>
+                    )}
+                </div>
+                <div>
+                    {userAccount && balance ? <TransferSection /> : null}
+                </div>
             </div>
         </>
     )

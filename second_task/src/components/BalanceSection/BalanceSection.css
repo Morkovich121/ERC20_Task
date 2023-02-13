@@ -18,5 +18,25 @@
 
 .connectWallet {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
+    font-size: 26px;
+    color: black;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+}
+
+.textHeader{
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 700;
 }

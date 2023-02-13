@@ -4,19 +4,24 @@
 }
 
 .header {
-  height: 80px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: rgb(212, 201, 201);
-  font-size: 26px;
+  font-size: 24px;
+  height: 54px;
+  padding: 0px 20px;
+  background-color: #262626;
+  z-index: 100;
+  color: white;
   font-weight: 700;
 }
 
 .container {
   display: flex;
-  background: linear-gradient(180deg, rgb(216, 255, 183), rgb(220, 251, 255));
-  height: 700px;
+  background: url("https://phonoteka.org/uploads/posts/2022-09/1664018701_1-phonoteka-org-p-oboi-s-perekhodom-tsveta-vkontakte-1.jpg");
+  height: 680px;
+  min-height: fit-content;
+  color:rgb(204, 198, 198);
 }
 
 .w50 {
@@ -29,7 +34,8 @@
   border: none;
   padding: 6px;
   font-weight: 550;
-  width: fit-content;
+  font-size: 20px;
+  width: 200px;
   cursor: pointer;
-  background-color: aqua;
+  background-color: rgb(255, 255, 255);
 }
