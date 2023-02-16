@@ -15,8 +15,10 @@ export class TransferResolver {
   }
 
   @Query(() => TransferEntity)
-  async getOneTransfer(@Args('id') id: number): Promise<TransferEntity> {
-    return await this.transferService.getOneTransfer(id);
+  async getOneTransfer(
+    @Args('address') address: string
+  ): Promise<TransferEntity[]> {
+    return await this.transferService.getOneTransfer(address);
   }
 
   @Query(() => [TransferEntity])

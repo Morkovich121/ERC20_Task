@@ -9,11 +9,11 @@ export class TransferEntity {
   id: number;
 
   @Field()
-  @Column()
+  @Column({ type: 'varchar', length: 42, nullable: false })
   sender: string;
 
   @Field()
-  @Column()
+  @Column({ type: 'varchar', length: 42, nullable: false })
   recipient: string;
 
   @Field()
@@ -21,6 +21,6 @@ export class TransferEntity {
   tokenAmount: number;
 
   @Field()
-  @Column()
+  @Column({ type: 'text', nullable: false })
   hash: string;
 }

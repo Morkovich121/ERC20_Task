@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { TransferEntity } from './entities/transfer.entity';
 import { CreateTransferInput } from './inputs/create-transfer.input';
 import { TransferService } from './transfer.service';
@@ -12,13 +12,15 @@ export class TransferController {
     return this.transferService.getAllTransfers();
   }
 
-  @Get(':id')
-  getOneTransfer(@Param('id') id: number) {
-    return this.transferService.getOneTransfer(id);
+  @Get(':address')
+  getOneTransfer(@Param('address') address: string): Promise<TransferEntity[]> {
+    return this.transferService.getOneTransfer(address);
   }
 
   @Post()
-  createTransfer(transferInput: CreateTransferInput): Promise<TransferEntity> {
+  createTransfer(
+    @Body() transferInput: CreateTransferInput
+  ): Promise<TransferEntity> {
     return this.transferService.createTransfer(transferInput);
   }
 }

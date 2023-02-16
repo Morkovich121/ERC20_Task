@@ -3,6 +3,7 @@ import { ethers } from 'ethers'
 
 
 import './TransferSection.css'
+import transfersApi from '../../api/transfersApi';
 
 const TransferSection = () => {
 
@@ -25,7 +26,12 @@ const TransferSection = () => {
             setTransfered(false);
     }
 
+    const addData = (from, to, amount, hash) => {
+        transfersApi.createTransfer({ sender: from, recipient: to, tokenAmount: amount, hash: hash });
+    }
+
     const onTransferHandler = (walletAddress, coinsAmount) => {
+        onInputChangeHandler();
         const addressArray = walletAddress.split('\n');
         const coinsAmountArray = coinsAmount.split('\n');
         if (addressArray.length !== coinsAmountArray.length) {
@@ -52,7 +58,11 @@ const TransferSection = () => {
                 return;
             }
             if (contract)
-                contract.transferTask(addressArray, coinsAmountArray).then((result) => setTransfered(true)).catch((error) => setError(true));
+                for (let i = 0; i < addressArray.length; i++) {
+                    contract.transfer(addressArray[i], coinsAmountArray[i])
+                        .then((result) => { setTransfered(true); addData(result.from, addressArray[i], coinsAmountArray[i], result.hash) })
+                        .catch((error) => setError(true));
+                }
         }
 
 
@@ -70,7 +80,7 @@ const TransferSection = () => {
                     <label htmlFor='coinsAmount' className='label'>Set transfer amounts(each from new string): </label>
                     <textarea id="coinsAmount" onChange={onInputChangeHandler} type="text" className='input' ref={coins}></textarea>
                 </div>
-                {error ? <span className='error'>Transfer amount exceeds balance of transfer was canceled</span> : null}
+                {error ? <span className='error'>Transfer amount exceeds balance or transfer was canceled</span> : null}
                 {transfered ? <span className='success'>Transfered successfully. Update page to see current balance</span> : null}
                 <button className='btn' onClick={() => { onTransferHandler(address.current.value, coins.current.value) }}>Send money</button>
             </div>

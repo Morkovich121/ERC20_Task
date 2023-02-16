@@ -21,7 +21,9 @@ export class TransferService {
     return await this.transferRepository.find();
   }
 
-  async getOneTransfer(id: number): Promise<TransferEntity> {
-    return await this.transferRepository.findOne({ where: { id: id } });
+  async getOneTransfer(address: string): Promise<TransferEntity[]> {
+    return await this.transferRepository.find({
+      where: [{ sender: address }, { recipient: address }],
+    });
   }
 }

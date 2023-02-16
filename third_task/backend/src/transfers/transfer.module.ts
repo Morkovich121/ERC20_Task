@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TransferEntity } from './entities/transfer.entity';
-import { TransferResolver } from './resolvers/user.resolver';
+import { TransferResolver } from './resolvers/transfer.resolver';
 import { TransferController } from './transfer.controller';
 import { TransferService } from './transfer.service';
 
